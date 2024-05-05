@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Starts a Flash Web Application """
+"""Launches Flash Web App"""
 from models import storage
 from models.state import State
 from models.city import City
@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def close_db(error):
-    """ Remove the current SQLAlchemy Session """
+    """ Terminate SQLAlchemy Session """
     storage.close()
 
 

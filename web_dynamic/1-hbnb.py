@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Starts a Flash Web Application """
+""" Initializes a Flask web application. """
 from models import storage
 from models.state import State
 from models.city import City
@@ -8,20 +8,23 @@ from models.place import Place
 from os import environ
 from flask import Flask, render_template
 import uuid
+
 app = Flask(__name__)
+
+
+# Uncomment the following two lines to trim whitespace in the templates
 # app.jinja_env.trim_blocks = True
 # app.jinja_env.lstrip_blocks = True
 
-
 @app.teardown_appcontext
 def close_db(error):
-    """ Remove the current SQLAlchemy Session """
+    """ Closes the current database session provided by SQLAlchemy. """
     storage.close()
 
 
 @app.route('/1-hbnb/', strict_slashes=False)
 def hbnb():
-    """ HBNB is alive! """
+    """ Displays the status of the HBNB application. """
     states = storage.all(State).values()
     states = sorted(states, key=lambda k: k.name)
     st_ct = []
@@ -43,5 +46,5 @@ def hbnb():
 
 
 if __name__ == "__main__":
-    """ Main Function """
+    """ Executes the application when the script is run directly. """
     app.run(host='0.0.0.0', port=5000)
